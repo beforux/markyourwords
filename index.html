@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Mark Your Words</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script>
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<section class="container">
+  
+  <h1>Mark Your Words</h1>
+  
+  <div class="new-task-container box">
+  
+  <label for="new-task">Add Your Words</label>
+  <input type="text" id="new-task" size="50">
+    <button id="addTask">Add to Timeline</button>
+  
+  </div>
+  
+  <div class="todo-list box">
+  
+    <h2>Timeline</h2>
+    <ul>
+     
+    </ul>
+  
+  </div><!--/todo-list-->
+  
+  <div class="complete-list box">
+    
+    <h2>LittleBin</h2>
+    <ul>
+      <li>Task Name <button class="delete">Delete</button></li>
+
+    </ul>
+    
+    
+  </div><!--/complete-list-->
+  
+  
+  
+  
+  
+</section><!--/container-->
+  <script  src="./script.js"></script>
+
+</body>
+</html>
