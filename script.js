@@ -14,24 +14,22 @@
 
 
 
-
-
 //SELECT ELEMENTS AND ASSIGN THEM TO VARS
 var newTask = document.querySelector("#new-task");
 var addTaskBtn = document.querySelector("#addTask");
 var toDoUl = document.querySelector(".todo-list ul");
 var completeUl =  document.querySelector(".complete-list ul");
-  var today = new Date();
-  var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-  var time = today.getHours()+":"+today.getMinutes();
-  var dateTime = date + " " + time;
+var today = new Date();
+var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+var time = today.getHours()+":"+today.getMinutes();
+var dateTime = date + " " + time;
 
 
 //CREATE FUNCTIONS
 
 //CREATING THE ACTUAL TASK LIST ITEM
 var createNewTask = function(task){
-  console.log("Creating task...");
+  // console.log("Creating task...");
   
   //SET UP THE NEW LIST ITEM
   var listItem = document.createElement("li"); //<li>
@@ -41,10 +39,6 @@ var createNewTask = function(task){
   throwBtn.innerText ="Throw";
   throwBtn.className="throw";
 
-  // var today = new Date();
-  // var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-  // var time = today.getHours()+":"+today.getMinutes();
-  // var dateTime = date + " " + time;
 
   //PULL THE INPUTED TEXT INTO LABEL
   label.innerText = dateTime +" " + task ;
@@ -52,8 +46,6 @@ var createNewTask = function(task){
   
   //ADD PROPERTIES
   // checkBox.type = "checkbox";
-
-  //STORE DATA
 
   
   //ADD ITEMS TO THE LI
@@ -65,12 +57,14 @@ var createNewTask = function(task){
   
 };
 
+
+
 //ADD THE NEW TASK INTO ACTUAL INCOMPLETE LIST
 var addTask = function(){
   
   input_box = document.getElementById("new-task");
 
-  console.log("Adding task...");
+  // console.log("Adding task...");
   //FOR CLARITY, GRAB THE INPUTTED TEXT AND STORE IT IN A VAR
   var listItem = createNewTask(newTask.value);
   var key = firebase.database().ref().child("todo-list").push().key;
@@ -78,12 +72,12 @@ var addTask = function(){
 
   var task = {
     time: dateTime,
-    task: input_box.value,
+    words: input_box.value,
     key: key
   }
 
   var updates = {};
-  updates["/unfinished_task/" + key] = task;
+  updates["/your_words/" + key] = task;
   firebase.database().ref().update(updates);
   console.log (updates);
 
@@ -94,8 +88,58 @@ var addTask = function(){
   
   //BIND THE NEW LIST ITEM TO THE INCOMPLETE LIST
   bindIncompleteItems(listItem, completeTask);
+  createUnfinishedTask();
 
 };
+
+
+var createUnfinishedTask = function(){
+   unfinishedTask = document.getElementsByClassName("todo-list")[0]
+   unfinishedTask.innerText= "";
+
+   word_array =[];
+   firebase.database().ref("your_words").on('value',function(snapshot){
+     snapshot.forEach(function(childSnapshot){
+
+      var childKey = childSnapshot.key;
+      var childData = childSnapshot.val();
+      word_array.push(Object.values(childData));
+
+     });
+
+     word_array.reverse();
+
+     for (var i, i = 0; i<word_array.length;i++){
+        key = word_array[i][0];
+        word = word_array[i][1];
+        date = word_array[i][2];
+
+        todo_list = document.createElement("div");
+        todo_list.setAttribute("class","todo-list");
+        todo_list.setAttribute("data-key",key);
+
+
+        list = document.createElement("li");
+        label = document.createElement("label");
+
+        label.innerText = word + " " + date;
+       
+        throwBtn = document.createElement("button");
+        throwBtn.setAttribute("class","throw")
+        throwBtn.setAttribute("onclick","completeTask(this.parentNode.parentNode,this.parentNode)")
+        throwBtn.innerText ="Throw";
+
+        list.appendChild(throwBtn);
+        list.appendChild(label);
+        unfinishedTask.appendChild(list); 
+
+        // unfinishedTask.appendChild(list)
+
+     }
+
+   })
+
+}
 
 
 
@@ -104,12 +148,12 @@ var completeTask = function(){
   //GRAB THE CHECKBOX'S PARENT ELEMENT, THE LI IT'S IN
   var listItem = this.parentNode;
 
-  
   //CREATE AND INSERT THE DELETE BUTTON
   var deleteBtn = document.createElement("button"); // <button>
+  deleteBtn.setAttribute("class","delete")
   deleteBtn.innerText ="Delete"; 
-  deleteBtn.className = "delete";
   listItem.appendChild(deleteBtn);
+
   var throwBtn = listItem.querySelector(".throw")
   throwBtn.remove();
   
@@ -117,8 +161,6 @@ var completeTask = function(){
   // var checkBox = listItem.querySelector("input[type=checkbox]");
   // checkBox.remove();
 
-
-  
   //PLACE IT INSIDE THE COMPLETED LIST
   completeUl.appendChild(listItem); 
   
