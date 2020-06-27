@@ -118,11 +118,15 @@ var createUnfinishedTask = function(){
         todo_list.setAttribute("class","todo-list");
         todo_list.setAttribute("data-key",key);
 
-
         list = document.createElement("li");
-        label = document.createElement("label");
+        label1 = document.createElement("label");
+        label2= document.createElement("label");
+        label1.innerText= word + " ";
+        label1.setAttribute("class","date");
+        label2.innerText= date + " ";
+        label2.setAttribute("class","word")
 
-        label.innerText = word + " " + date;
+        // label.innerText = word + " " + date;
        
         throwBtn = document.createElement("button");
         throwBtn.setAttribute("class","throw")
@@ -130,7 +134,9 @@ var createUnfinishedTask = function(){
         throwBtn.innerText ="Throw";
 
         list.appendChild(throwBtn);
-        list.appendChild(label);
+        list.appendChild(label2);
+
+        list.appendChild(label1);
         unfinishedTask.appendChild(list); 
 
         // unfinishedTask.appendChild(list)

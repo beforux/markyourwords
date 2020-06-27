@@ -6,37 +6,42 @@
   <link rel="stylesheet" href="./style.css">
   <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script>
+   <link rel = "icon" href = "mark.ico"> 
 
 </head>
 <body onload="createUnfinishedTask()">
 <!-- partial:index.partial.html -->
 <section class="container">
   
-  <h1>Mark Your Words</h1>
+  <h1>  <img src="icon.png"></h1>
+
   
   <div class="new-task-container box">
-  
-  <label for="new-task">Add Your Words</label>
-  <input type="text" id="new-task" size="50">
+
+<!--   <label for="new-task" class="main-title">Add Your Words</label>
+ -->
+  <input type="text" id="new-task" size="50" placeholder="Add Your Words">
     <button id="addTask">Add to Timeline</button>
   
   </div>
-  
+        <h2>Timeline</h2>
+
   <div class="todo-list box">
-  
-    <h2>Timeline</h2>
+<!--       <h2>Timeline</h2>
+ -->
     <ul>
      
     </ul>
   
   </div><!--/todo-list-->
   
+      <h2>LittleBin</h2>
+
   <div class="complete-list box">
     
-    <h2>LittleBin</h2>
     <ul>
-      <li>Task Name <button class="delete">Delete</button></li>
-
+<!--       <li>Task Name <button class="delete">Delete</button></li>
+ -->
     </ul>
     
     
