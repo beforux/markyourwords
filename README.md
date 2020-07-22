@@ -5,4 +5,4 @@
 - [ ] paste空格 空格可以分行
 
 ##### reference
-[How to make a TO DO LIST website using HTML, JavaScript, CSS & Firebase] (https://www.youtube.com/watch?v=JLLrFjjSUVo)
+[How to make a TO DO LIST website using HTML, JavaScript, CSS & Firebase](https://www.youtube.com/watch?v=JLLrFjjSUVo)
